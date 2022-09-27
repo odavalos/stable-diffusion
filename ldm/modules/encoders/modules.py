@@ -9,6 +9,15 @@ import kornia
 from ldm.modules.x_transformer import Encoder, TransformerWrapper  # TODO: can we directly rely on lucidrains code and simply add this as a reuirement? --> test
 
 
+def get_default_device_type():
+    if torch.cuda.is_available():
+        return "cuda"
+    elif torch.backends.mps.is_available():
+        return "mps"
+    else:
+        return "cpu"
+    
+
 class AbstractEncoder(nn.Module):
     def __init__(self):
         super().__init__()
